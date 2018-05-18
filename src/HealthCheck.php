@@ -128,7 +128,7 @@ class HealthCheck
         $this->result = $result;
 
         /** @var Formatter\IFormatter $formatter */
-        $formatter = new ($this->formatter)();
+        $formatter = new $this->formatter();
         return $formatter->format($result);
     }
 }
