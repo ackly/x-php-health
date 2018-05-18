@@ -11,6 +11,8 @@ namespace Ackly\Health;
  */
 class CheckResult
 {
+    public $status = 'ok';
+
     protected $errors = [];
     protected $warnings = [];
     protected $info = [];
@@ -53,16 +55,14 @@ class CheckResult
      */
     public function toArray(): array
     {
-        $status = 'ok';
-
         if (!empty($this->warnings)) {
-            $status = 'warning';
+            $this->status = 'warning';
         } elseif (!empty($this->errors)) {
-            $status = 'error';
+            $this->status = 'error';
         }
 
         return [
-            'status' => $status,
+            'status' => $this->status,
             'errors' => array_merge(array_map(function($x) {
                 return ['severity' => 'error', 'message' => $x];
             }, $this->errors), array_map(function($x) {

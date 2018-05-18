@@ -63,7 +63,6 @@ class DB extends BaseCheck
 
         try {
             $result->info('version', $instance->getAttribute(\PDO::ATTR_SERVER_VERSION));
-            $result->info('info', $instance->getAttribute(\PDO::ATTR_SERVER_INFO));
 
             if ($instance->query('SELECT 1') === false) {
                 $result->error('Test query failed (SELECT 1 returned false)');

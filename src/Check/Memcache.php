@@ -64,7 +64,7 @@ class Memcache extends BaseCheck
             $instance->addServer($this->host, $this->port);
         }
 
-        if (!$stats = $instance->getStats()) {
+        if (!$stats = current($instance->getStats())) {
             $result->error('Failed to receive stats (Connection failed).');
         } else {
             $result->info('version', $stats['version']);
@@ -73,8 +73,13 @@ class Memcache extends BaseCheck
             $result->info('total_items', $stats['total_items']);
             $result->info('evictions', $stats['evictions']);
 
-            $percentGet = round((float)$stats['get_hits'] / (float)$stats['cmd_get'] * 100, 3);
-            $percentMisses = 100 - $percentGet;
+            if ($stats['cmd_get'] > 0) {
+                $percentGet = round((float)$stats['get_hits'] / (float)$stats['cmd_get'] * 100, 3);
+                $percentMisses = 100 - $percentGet;
+            } else {
+                $percentGet = 0;
+                $percentMisses = 0;
+            }
 
             $result->info('percent_get', $percentGet);
             $result->info('percent_misses', $percentMisses);
