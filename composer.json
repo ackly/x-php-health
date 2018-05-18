@@ -19,7 +19,8 @@
             "url": ""
         }
     ],
-    "minimum-stability": "beta",
+    "license": "MIT",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0"
     }
