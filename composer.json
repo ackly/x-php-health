@@ -1,0 +1,26 @@
+{
+    "name": "vsemayki_ru/x-php-health",
+    "description": "Health checks for native php7.0+ applications",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Andrey Stroganov",
+            "email": "a.stroganov@vsemayki.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vsemayki\\Health\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "vcs": "git",
+            "url": ""
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "php": ">=7.0.0"
+    }
+}
