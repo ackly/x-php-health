@@ -1,15 +1,15 @@
 <?php
 
-namespace Vsemayki\Health\Check;
+namespace Ackly\Health\Check;
 
-use Vsemayki\Health\CheckResult;
+use Ackly\Health\CheckResult;
 
 /**
  * Class FS
  *
  * Checks status of specified path on file system
  *
- * @package Vsemayki\Health\Check
+ * @package Ackly\Health\Check
  */
 class FS extends BaseCheck
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Vsemayki\Health;
+namespace Ackly\Health;
 
 /**
  * Class CheckResult
  *
  * Representing health check result
  *
- * @package Vsemayki\Health
+ * @package Ackly\Health
  */
 class CheckResult
 {

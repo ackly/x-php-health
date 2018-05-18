@@ -1,12 +1,12 @@
 <?php
 
-namespace Vsemayki\Health\Formatter;
+namespace Ackly\Health\Formatter;
 
 
 /**
  * Class JsonFormatter
  *
- * @package Vsemayki\Health\Formatter
+ * @package Ackly\Health\Formatter
  */
 class JsonFormatter implements IFormatter
 {

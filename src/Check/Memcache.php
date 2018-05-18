@@ -1,15 +1,15 @@
 <?php
 
-namespace Vsemayki\Health\Check;
+namespace Ackly\Health\Check;
 
-use Vsemayki\Health\CheckResult;
+use Ackly\Health\CheckResult;
 
 /**
  * Class Memcache
  *
  * Checks availability and status of memcache.
  *
- * @package Vsemayki\Health\Check
+ * @package Ackly\Health\Check
  */
 class Memcache extends BaseCheck
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Vsemayki\Health\Formatter;
+namespace Ackly\Health\Formatter;
 
 
 /**
  * Interface IFormatter
  *
- * @package Vsemayki\Health\Formatter
+ * @package Ackly\Health\Formatter
  */
 interface IFormatter
 {

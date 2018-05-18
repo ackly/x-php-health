@@ -1,9 +1,9 @@
 <?php
 
-namespace Vsemayki\Health\Check;
+namespace Ackly\Health\Check;
 
 
-use Vsemayki\Health\CheckResult;
+use Ackly\Health\CheckResult;
 
 /**
  * Class BaseCheck

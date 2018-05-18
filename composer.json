@@ -1,5 +1,5 @@
 {
-    "name": "vsemayki_ru/x-php-health",
+    "name": "ackly/x-php-health",
     "description": "Health checks for native php7.0+ applications",
     "type": "library",
     "authors": [
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Vsemayki\\Health\\": "src/"
+            "Ackly\\Health\\": "src/"
         }
     },
     "repositories": [

@@ -1,14 +1,14 @@
 <?php
 
-namespace Vsemayki\Health;
+namespace Ackly\Health;
 
-use Vsemayki\Health\Check\BaseCheck;
-use Vsemayki\Health\Formatter\JsonFormatter;
+use Ackly\Health\Check\BaseCheck;
+use Ackly\Health\Formatter\JsonFormatter;
 
 /**
  * Class HealthCheck
  *
- * @package Vsemayki\Health
+ * @package Ackly\Health
  */
 class HealthCheck
 {
@@ -100,7 +100,7 @@ class HealthCheck
                 $check = new $check($checkArgs);
 
                 if (!($check instanceof BaseCheck)) {
-                    throw new \Exception($service . ' check must be derived from Vsemayki\\Health\\Check\\BaseCheck');
+                    throw new \Exception($service . ' check must be derived from Ackly\\Health\\Check\\BaseCheck');
                 }
 
                 $serviceStatus = $check->run();
@@ -109,7 +109,7 @@ class HealthCheck
             }
 
             if (!($serviceStatus instanceof CheckResult)) {
-                throw new \Exception('Each health check must return instance of Vsemayki\\Health\\CheckResult');
+                throw new \Exception('Each health check must return instance of Ackly\\Health\\CheckResult');
             }
 
             if ($serviceStatus->status == 'warning' && $result['status'] == 'ok') {
