@@ -19,6 +19,8 @@ class HealthCheck
     protected $name = '';
     protected $dependencies = [];
 
+    public $result = null;
+
     /**
      * HealthCheck constructor.
      *
@@ -122,6 +124,8 @@ class HealthCheck
 
             $result['components'][] = array_merge(['name' => $service], $serviceStatus->toArray());
         }
+
+        $this->result = $result;
 
         /** @var Formatter\IFormatter $formatter */
         $formatter = new ($this->formatter)();
