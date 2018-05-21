@@ -47,10 +47,10 @@ class DB extends BaseCheck
                     $options['host'],
                     $options['port'] ?? ($this->dialect == 'mysql' ? '3306' : '5432')
                 );
-
-                $this->user = $options['user'];
-                $this->password = $options['password'];
             }
+
+            $this->user = $options['user'];
+            $this->password = $options['password'];
         }
     }
 
