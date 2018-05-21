@@ -24,6 +24,8 @@ class CheckResult
      */
     public function error(string $message)
     {
+        $this->status = 'error';
+
         $this->errors[] = $message;
     }
 
@@ -34,6 +36,10 @@ class CheckResult
      */
     public function warning(string $message)
     {
+        if ($this->status == 'ok') {
+            $this->status = 'warning';
+        }
+
         $this->warnings[] = $message;
     }
 
