@@ -58,39 +58,43 @@ class Memcache extends BaseCheck
         $instance = $this->instance;
         $result = new CheckResult();
 
-        if (!$instance) {
-            $instance = new $this->cacheClass();
+        try {
+            if (!$instance) {
+                $instance = new $this->cacheClass();
 
-            $instance->addServer($this->host, $this->port);
-        }
+                $instance->addServer($this->host, $this->port);
+            }
 
-        if (!$stats = current($instance->getStats())) {
-            $result->error('Failed to receive stats (Connection failed).');
-        } else {
-            $result->info('version', $stats['version']);
-            $result->info('uptime', $stats['uptime']);
-            $result->info('curr_items', $stats['curr_items']);
-            $result->info('total_items', $stats['total_items']);
-            $result->info('evictions', $stats['evictions']);
-
-            if ($stats['cmd_get'] > 0) {
-                $percentGet = round((float)$stats['get_hits'] / (float)$stats['cmd_get'] * 100, 3);
-                $percentMisses = 100 - $percentGet;
+            if (!$stats = current($instance->getStats())) {
+                $result->error('Failed to receive stats (Connection failed).');
             } else {
-                $percentGet = 0;
-                $percentMisses = 0;
-            }
+                $result->info('version', $stats['version']);
+                $result->info('uptime', $stats['uptime']);
+                $result->info('curr_items', $stats['curr_items']);
+                $result->info('total_items', $stats['total_items']);
+                $result->info('evictions', $stats['evictions']);
 
-            $result->info('percent_get', $percentGet);
-            $result->info('percent_misses', $percentMisses);
+                if ($stats['cmd_get'] > 0) {
+                    $percentGet = round((float)$stats['get_hits'] / (float)$stats['cmd_get'] * 100, 3);
+                    $percentMisses = 100 - $percentGet;
+                } else {
+                    $percentGet = 0;
+                    $percentMisses = 0;
+                }
 
-            if (isset($this->thresholds['percent_misses']) && (float)$this->thresholds['percent_misses'] < $percentMisses) {
-                $result->warning('Number of misses overpasses specified threshold ('. $this->thresholds['percent_misses'] .')');
-            }
+                $result->info('percent_get', $percentGet);
+                $result->info('percent_misses', $percentMisses);
 
-            if (isset($this->thresholds['evictions']) && (float)$this->thresholds['evictions'] < $stats['evictions']) {
-                $result->warning('Number of evictions overpasses specified threshold ('. $this->thresholds['evictions'] .')');
+                if (isset($this->thresholds['percent_misses']) && (float)$this->thresholds['percent_misses'] < $percentMisses) {
+                    $result->warning('Number of misses overpasses specified threshold (' . $this->thresholds['percent_misses'] . ')');
+                }
+
+                if (isset($this->thresholds['evictions']) && (float)$this->thresholds['evictions'] < $stats['evictions']) {
+                    $result->warning('Number of evictions overpasses specified threshold (' . $this->thresholds['evictions'] . ')');
+                }
             }
+        } catch (\Exception $e) {
+            $result->error($e->getMessage());
         }
 
         return $result;

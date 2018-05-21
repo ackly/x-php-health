@@ -60,9 +60,10 @@ class DB extends BaseCheck
     public function run(): CheckResult
     {
         $result = new CheckResult();
-        $instance = $this->instance ?? new \PDO($this->dsn, $this->user, $this->password);
 
         try {
+            $instance = $this->instance ?? new \PDO($this->dsn, $this->user, $this->password);
+
             $result->info('version', $instance->getAttribute(\PDO::ATTR_SERVER_VERSION));
 
             if ($instance->query('SELECT 1') === false) {
