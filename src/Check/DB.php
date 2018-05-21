@@ -43,6 +43,7 @@ class DB extends BaseCheck
                 $this->dsn = sprintf(
                     '%s:dbname=%s;host=%s;port=%s',
                     $this->dialect,
+                    $options['dbname'],
                     $options['host'],
                     $options['port'] ?? ($this->dialect == 'mysql' ? '3306' : '5432')
                 );
