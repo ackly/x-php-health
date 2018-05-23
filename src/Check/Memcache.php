@@ -65,7 +65,9 @@ class Memcache extends BaseCheck
                 $instance->addServer($this->host, $this->port);
             }
 
-            if (!$stats = current($instance->getStats())) {
+            $statResult = $instance->getStats();
+
+            if ($statResult || !$stats = current($statResult)) {
                 $result->error('Failed to receive stats (Connection failed).');
             } else {
                 $result->info('version', $stats['version']);
