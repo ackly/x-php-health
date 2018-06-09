@@ -122,7 +122,11 @@ class HealthCheck
                 $result['status'] = 'error';
             }
 
-            $result['components'][] = array_merge(['name' => $service], $serviceStatus->toArray());
+            $result['components'][$service] = array_merge(['name' => $service], $serviceStatus->toArray());
+        }
+
+        if (empty($result['components'])) {
+            unset($result['components']);
         }
 
         $this->result = $result;
