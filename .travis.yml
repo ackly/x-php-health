@@ -9,8 +9,6 @@ env:
 matrix:
   fast_finish: true
   include:
-  - php: 7.0
-    env: REPORT_TESTS_COVERAGE=0
   - php: 7.1
     env: REPORT_TESTS_COVERAGE=0
   - php: 7.2
