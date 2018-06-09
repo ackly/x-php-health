@@ -23,7 +23,7 @@ class FS extends BaseCheck
      * @param array $options
      * @throws \Exception
      */
-    public function __construct($options = [])
+    public function __construct(array $options)
     {
         if (!isset($options['path'])) {
             throw new \Exception('path option required for fs check');
@@ -60,15 +60,15 @@ class FS extends BaseCheck
 
             $totalSpace = disk_total_space($this->path);
 
-            $usagePercent = round((real)$freeSpace / (real)$totalSpace * 100, 3);
+            $usagePercent = round($freeSpace / $totalSpace * 100, 3);
 
             $result->info('usage', $usagePercent . '%');
 
-            if (isset($this->thresholds['free_bytes']) && (real)$this->thresholds['free_bytes'] < $freeSpace) {
+            if (isset($this->thresholds['free_bytes']) && $this->thresholds['free_bytes'] > $freeSpace) {
                 $result->warning('Amount of free disk space is less that required value (' . $this->formatBytes($this->thresholds['free_bytes']) . ')');
             }
 
-            if (isset($this->thresholds['usage_percent']) && (real)$this->thresholds['usage_percent'] < $usagePercent) {
+            if (isset($this->thresholds['usage_percent']) && $this->thresholds['usage_percent'] < $usagePercent) {
                 $result->warning('Disk usage overpasses required threshold (' . $this->thresholds['usage_percent'] . ')');
             }
         } catch (\Exception $e) {
@@ -91,6 +91,6 @@ class FS extends BaseCheck
 
         $p = min((int)log($bytes, 1024), count($suffix) - 1);
 
-        return sprintf('%1.2f%', ($bytes / pow(1024, $p)), $suffix[$p]);
+        return sprintf('%1.2f%s', ($bytes / pow(1024, $p)), $suffix[$p]);
     }
 }

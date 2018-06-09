@@ -67,7 +67,7 @@ class Memcache extends BaseCheck
 
             $statResult = $instance->getStats();
 
-            if ($statResult || !$stats = current($statResult)) {
+            if (!is_array($statResult) || !$stats = current($statResult)) {
                 $result->error('Failed to receive stats (Connection failed).');
             } else {
                 $result->info('version', $stats['version']);
@@ -91,7 +91,7 @@ class Memcache extends BaseCheck
                     $result->warning('Number of misses overpasses specified threshold (' . $this->thresholds['percent_misses'] . ')');
                 }
 
-                if (isset($this->thresholds['evictions']) && (float)$this->thresholds['evictions'] < $stats['evictions']) {
+                if (isset($this->thresholds['evictions']) && $this->thresholds['evictions'] < $stats['evictions']) {
                     $result->warning('Number of evictions overpasses specified threshold (' . $this->thresholds['evictions'] . ')');
                 }
             }

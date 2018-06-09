@@ -13,15 +13,20 @@
             "Ackly\\Health\\": "src/"
         }
     },
-    "repositories": [
-        {
-            "vcs": "git",
-            "url": ""
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Mocks\\": "tests/mocks"
         }
-    ],
+    },
     "license": "MIT",
+    "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "php-coveralls/php-coveralls": "^2.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7",
+        "phpunit/php-code-coverage": "^6.0"
     }
 }

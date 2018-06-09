@@ -1,0 +1,28 @@
+language: php
+sudo: false
+git:
+  depth: 1
+env:
+  global:
+  - DEFAULT_COMPOSER_FLAGS="--no-interaction --no-progress --optimize-autoloader"
+  - REPORT_TESTS_COVERAGE=1
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.0
+  - php: 7.1
+  - php: 7.2
+cache:
+  directories:
+  - "$HOME/.composer/cache"
+install:
+  - travis_retry composer update $DEFAULT_COMPOSER_FLAGS
+  - composer info -D | sort
+script:
+  - chown -R travis:travis /home/travis/build/ackly/x-php-health
+  - mkdir -p tests/storage/logs/test-reports
+  - chmod -R 777 /home/travis/build/ackly/x-php-health
+  - if [ $REPORT_TESTS_COVERAGE != 1 ]; then vendor/bin/phpunit --no-coverage; fi
+  - if [ $REPORT_TESTS_COVERAGE == 1 ]; then vendor/bin/phpunit; cp tests/storage/logs/test-reports/clover.xml clover.xml; fi
+after_success:
+  - if [ $REPORT_TESTS_COVERAGE == 1 ]; then php vendor/bin/coveralls -v; fi

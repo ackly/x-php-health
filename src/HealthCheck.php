@@ -48,7 +48,7 @@ class HealthCheck
     /**
      * Set custom formatter class
      *
-     * @param Formatter\IFormatter $formatterClass
+     * @param Formatter\IFormatter|string $formatterClass
      */
     public function setFormatter($formatterClass)
     {
@@ -98,7 +98,7 @@ class HealthCheck
         foreach ($this->checks as $service => $check) {
             $checkArgs = isset($args[$service]) ? $args[$service] : [];
 
-            if (class_exists($check)) {
+            if (is_string($check) && class_exists($check)) {
                 $check = new $check($checkArgs);
 
                 if (!($check instanceof BaseCheck)) {
