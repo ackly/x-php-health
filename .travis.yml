@@ -25,4 +25,4 @@ script:
   - if [ $REPORT_TESTS_COVERAGE != 1 ]; then vendor/bin/phpunit --no-coverage; fi
   - if [ $REPORT_TESTS_COVERAGE == 1 ]; then vendor/bin/phpunit; cp tests/storage/logs/test-reports/clover.xml clover.xml; fi
 after_success:
-  - if [ $REPORT_TESTS_COVERAGE == 1 ]; then php vendor/bin/coveralls -v; fi
+  - if [ $REPORT_TESTS_COVERAGE == 1 ]; then php vendor/bin/php-coveralls -v; fi
